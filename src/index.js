@@ -1,9 +1,18 @@
 import { LitElement, html, css } from "lit-element";
 import getRouterPages from "./pages/router-pages.js";
+import SessionManager from "./service/session-manager.js";
+const DEFAULT_PAGE = "login";
 
 class AppLogin extends LitElement {
+  constructor() {
+    super();
+    this.currentPage = DEFAULT_PAGE;
+  }
+
   static get properties() {
-    return {};
+    return {
+      currentPage: { type: String },
+    };
   }
 
   static get styles() {
@@ -16,12 +25,40 @@ class AppLogin extends LitElement {
     `;
   }
 
-  constructor() {
-    super();
+  connectedCallback() {
+    super.connectedCallback();
+    this.session = new SessionManager("user-session");
+    this.sessionActive();
+    this.addEventListener("login-success", (e) => this.loginSuccess(e));
+    this.addEventListener("logout", () => this.logOut());
+  }
+
+  sessionActive() {
+    if (this.session.isAlive()) this.changeRoute("main");
+  }
+
+  loginSuccess({ detail: user }) {
+    if (user) {
+      this.session.save(user);
+      this.sessionActive();
+    } else {
+      this.changeRoute("login");
+    }
+  }
+
+  logOut() {
+    this.session.remove();
+    this.changeRoute("login");
+  }
+
+  changeRoute(page = this.currentPage) {
+    this.currentPage = page;
   }
 
   render() {
-    return html`<div class="app-container">${getRouterPages("login")}</div>`;
+    return html`<div class="app-container">
+      ${getRouterPages(this.currentPage)}
+    </div>`;
   }
 }
 

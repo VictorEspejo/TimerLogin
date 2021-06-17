@@ -1,21 +1,13 @@
 import { LitElement, html, css } from "lit-element";
 import "../../components/LoginForm/index";
 import lockIcon from "../../assets/lock-icon.js";
+import {
+  getUserFromLocalStorage,
+  saveUserInLocalStorage,
+  validateUserPassword,
+} from "../../service/database-service";
 
 class LoginPage extends LitElement {
-  static get properties() {
-    return {
-      email: { type: String },
-      password: { type: String },
-    };
-  }
-
-  constructor() {
-    super();
-    this.password = "";
-    this.email = "";
-  }
-
   static get styles() {
     return css`
       .center {
@@ -38,12 +30,45 @@ class LoginPage extends LitElement {
     `;
   }
 
+  handleSubmit({ detail }) {
+    const { email, password } = detail;
+    this.validateCredentials(email, password);
+  }
+
+  validateCredentials(email, password) {
+    const userSaved = getUserFromLocalStorage(email);
+    if (userSaved) {
+      if (validateUserPassword(email, password)) {
+        this.loginSuccess(email);
+      } else {
+        console.error("INVALID CREDENTIALS");
+      }
+    } else {
+      saveUserInLocalStorage(email, password);
+      this.loginSuccess(email);
+    }
+  }
+
+  loginSuccess(user) {
+    this.dispatchEvent(
+      new CustomEvent("login-success", {
+        bubbles: true,
+        composed: true,
+        detail: user,
+      })
+    );
+  }
+
   render() {
     return html`
       <div class="login-container center">
         <div class="login-icon center">${lockIcon}</div>
         <div class="login-form">
-          <login-form></login-form>
+          <login-form
+            email=${this.email}
+            password=${this.pas}
+            @login-submit=${this.handleSubmit}
+          ></login-form>
         </div>
       </div>
     `;

@@ -1,11 +1,7 @@
 import { LitElement, html, css } from "lit-element";
 import "../../components/LoginForm/index";
 import lockIcon from "../../assets/lock-icon.js";
-import {
-  getUserFromLocalStorage,
-  saveUserInLocalStorage,
-  validateUserPassword,
-} from "../../service/database-service";
+import { ServiceManager } from "../../service/database-service";
 
 class LoginPage extends LitElement {
   static get styles() {
@@ -30,21 +26,26 @@ class LoginPage extends LitElement {
     `;
   }
 
+  connectedCallback() {
+    super.connectedCallback();
+    this.serviceManager = new ServiceManager();
+  }
+
   handleSubmit({ detail }) {
     const { email, password } = detail;
     this.validateCredentials(email, password);
   }
 
   validateCredentials(email, password) {
-    const userSaved = getUserFromLocalStorage(email);
+    const userSaved = this.serviceManager.getUser(email);
     if (userSaved) {
-      if (validateUserPassword(email, password)) {
+      if (this.serviceManager.checkCredentials({ name: email, password })) {
         this.loginSuccess(email);
       } else {
         console.error("INVALID CREDENTIALS");
       }
     } else {
-      saveUserInLocalStorage(email, password);
+      this.serviceManager.setUser({ name: email, password });
       this.loginSuccess(email);
     }
   }

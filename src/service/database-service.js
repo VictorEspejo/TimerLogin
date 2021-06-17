@@ -1,37 +1,41 @@
 import { convertToBase64 } from "../utils/validations";
 
-export const saveUserInLocalStorage = (
-  user,
-  password,
-  dateSession = new Date()
-) => {
-  if (!getUserFromLocalStorage(user)) {
-    const encryptedPassword = convertToBase64(password);
-    const userData = {
-      password: encryptedPassword,
-      dateSession,
-    };
-    saveInLocalStorage(user, userData);
+export class ServiceManager {
+  setUser(user = {}) {
+    if (!this.getUser(user.name)) {
+      const encryptedPassword = convertToBase64(user.password);
+      const userData = {
+        password: encryptedPassword,
+        dateSession: new Date(),
+      };
+      saveInLocalStorage(user.name, userData);
+    }
   }
-};
 
-export const validateUserPassword = (user, password) => {
-  const userLocalStorage = getUserFromLocalStorage(user);
-  return userLocalStorage && userLocalStorage.password
-    ? convertToBase64(password) === userLocalStorage.password
-    : false;
-};
-
-export const saveDateLocalStorage = (user) => {
-  const userSaved = getUserFromLocalStorage(user);
-  if (userSaved && !!userSaved.password && !!userSaved.dateSession) {
-    saveInLocalStorage(user, { ...userSaved, dateSession: new Date() });
+  getUser(user = "") {
+    return JSON.parse(window.localStorage.getItem(user)) || null;
   }
-};
 
-const saveInLocalStorage = (user, data) => {
-  window.localStorage.setItem(user, JSON.stringify(data));
-};
+  saveUser(user = {}) {
+    const userData = { password: user.password, dateSession: user.dateSession };
+    window.localStorage.setItem(user.name, JSON.stringify(userData));
+  }
 
-export const getUserFromLocalStorage = (user) =>
-  JSON.parse(window.localStorage.getItem(user)) || false;
+  updateUserLastSessionDate(user = "") {
+    const userSaved = this.getUser(user);
+    if (userSaved && !!userSaved.dateSession) {
+      this.saveUser(user, { ...userSaved, dateSession: new Date() });
+    }
+  }
+
+  removeUser(user = "") {
+    if (this.getUser(user)) window.localStorage.removeItem(user);
+  }
+
+  checkCredentials(user) {
+    const userLocalStorage = this.getUser(user.name);
+    return userLocalStorage && userLocalStorage.password
+      ? convertToBase64(user.password) === userLocalStorage.password
+      : false;
+  }
+}

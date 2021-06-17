@@ -14,6 +14,10 @@ export default class SessionManager {
     if (!this.isAlive()) sessionStorage.setItem(this.name, data);
   }
 
+  getUser() {
+    return sessionStorage.getItem(this.name);
+  }
+
   remove() {
     if (this.isAlive()) sessionStorage.removeItem(this.name);
   }

@@ -54,7 +54,7 @@ export class LoginForm extends LitElement {
             name="password"
             @input-changed=${this.handlePassword}
             type="password"
-            placeholder="password"
+            placeholder="password (8 letters)"
           ></input-element>
         </div>
         <div class="login-btn">

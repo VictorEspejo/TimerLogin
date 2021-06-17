@@ -1,0 +1,23 @@
+{
+  "name": "login-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "module": "index.js",
+  "type": "module",
+  "scripts": {
+    "build": "rollup -c",
+    "serve": "es-dev-server --app-index index.html --open --node-resolve --watch"
+  },
+  "dependencies": {
+    "lit": "2.0.0-rc.2",
+    "lit-element": "^2.5.1"
+  },
+  "devDependencies": {
+    "@open-wc/building-rollup": "^1.10.0",
+    "es-dev-server": "^2.1.0",
+    "rollup": "^2.51.2"
+  },
+  "author": "victor.espejo@gmail.com",
+  "license": "ISC"
+}

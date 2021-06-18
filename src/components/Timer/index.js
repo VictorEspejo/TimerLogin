@@ -1,6 +1,6 @@
-import { LitElement, html, css } from "lit-element";
-import { DateDiffManager } from "../../utils/date-manager.js";
-import "../Number/index.js";
+import { LitElement, html, css } from 'lit-element';
+import { DateDiffManager } from '../../utils/date-manager.js';
+import '../Number/index.js';
 
 export class TimerComponent extends LitElement {
   constructor() {
@@ -23,19 +23,21 @@ export class TimerComponent extends LitElement {
     };
   }
 
-  static styles = css`
-    .timer-number-container {
-      width: 100%;
-      margin: auto;
-      display: flex;
-      justify-content: center;
-      font-family: Georgia, "Times New Roman", Times, serif;
-    }
+  static get styles() {
+    return css`
+      .timer-number-container {
+        width: 100%;
+        margin: auto;
+        display: flex;
+        justify-content: center;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+      }
 
-    time-number {
-      margin: 0 8px 0 8px;
-    }
-  `;
+      time-number {
+        margin: 0 8px 0 8px;
+      }
+    `;
+  }
 
   connectedCallback() {
     super.connectedCallback();
@@ -71,4 +73,4 @@ export class TimerComponent extends LitElement {
     </div>`;
   }
 }
-customElements.define("timer-component", TimerComponent);
+customElements.define('timer-component', TimerComponent);

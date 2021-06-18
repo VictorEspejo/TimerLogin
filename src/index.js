@@ -1,7 +1,8 @@
-import { LitElement, html, css } from "lit-element";
-import getRouterPages from "./pages/router-pages.js";
-import SessionManager from "./service/session-manager.js";
-const DEFAULT_PAGE = "login";
+import { LitElement, html, css } from 'lit-element';
+import getRouterPages from './pages/router-pages.js';
+import SessionManager from './service/session-manager.js';
+
+const DEFAULT_PAGE = 'login';
 
 class AppLogin extends LitElement {
   constructor() {
@@ -27,14 +28,14 @@ class AppLogin extends LitElement {
 
   connectedCallback() {
     super.connectedCallback();
-    this.session = new SessionManager("user-session");
+    this.session = new SessionManager('user-session');
     this.sessionActive();
-    this.addEventListener("login-success", (e) => this.loginSuccess(e));
-    this.addEventListener("logout", () => this.logOut());
+    this.addEventListener('login-success', e => this.loginSuccess(e));
+    this.addEventListener('logout', () => this.logOut());
   }
 
   sessionActive() {
-    if (this.session.isAlive()) this.changeRoute("main");
+    if (this.session.isAlive()) this.changeRoute('main');
   }
 
   loginSuccess({ detail: user }) {
@@ -42,13 +43,13 @@ class AppLogin extends LitElement {
       this.session.save(user);
       this.sessionActive();
     } else {
-      this.changeRoute("login");
+      this.changeRoute('login');
     }
   }
 
   logOut() {
     this.session.remove();
-    this.changeRoute("login");
+    this.changeRoute('login');
   }
 
   changeRoute(page = this.currentPage) {
@@ -62,4 +63,4 @@ class AppLogin extends LitElement {
   }
 }
 
-customElements.define("app-login", AppLogin);
+customElements.define('app-login', AppLogin);

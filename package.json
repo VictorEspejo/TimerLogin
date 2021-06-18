@@ -7,15 +7,49 @@
   "type": "module",
   "scripts": {
     "build": "rollup -c",
-    "serve": "es-dev-server --app-index index.html --open --node-resolve --watch"
+    "serve": "es-dev-server --app-index index.html --open --node-resolve --watch",
+    "lint": "npm run lint:eslint && npm run lint:prettier",
+    "format": "npm run format:eslint && npm run format:prettier",
+    "lint:eslint": "eslint --ext .js,.html . --ignore-path .gitignore",
+    "format:eslint": "eslint --ext .js,.html . --fix --ignore-path .gitignore",
+    "lint:prettier": "prettier \"**/*.js\" --check --ignore-path .gitignore",
+    "format:prettier": "prettier \"**/*.js\" --write --ignore-path .gitignore"
+  },
+  "eslintConfig": {
+    "extends": [
+      "@open-wc/eslint-config"
+    ]
+  },
+  "prettier": {
+    "singleQuote": true,
+    "arrowParens": "avoid"
   },
   "dependencies": {
+    "deepmerge": "^4.2.2",
     "lit": "2.0.0-rc.2",
     "lit-element": "^2.5.1"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "prettier --write",
+      "git add"
+    ]
+  },
   "devDependencies": {
     "@open-wc/building-rollup": "^1.10.0",
+    "@open-wc/eslint-config": "^4.3.0",
     "es-dev-server": "^2.1.0",
+    "eslint": "^7.28.0",
+    "eslint-config-prettier": "^8.3.0",
+    "husky": "^6.0.0",
+    "lint-staged": "^11.0.0",
+    "prettier": "^2.3.1",
     "rollup": "^2.51.2"
   },
   "author": "victor.espejo@gmail.com",

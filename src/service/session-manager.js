@@ -2,7 +2,7 @@ export default class SessionManager {
   constructor(name) {
     this.name = name;
 
-    if (typeof SessionManager.instance === "object") {
+    if (typeof SessionManager.instance === 'object') {
       return SessionManager.instance;
     }
 

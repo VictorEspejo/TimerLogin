@@ -1,7 +1,7 @@
-import { LitElement, html, css } from "lit-element";
-import "../../components/LoginForm/index";
-import lockIcon from "../../assets/lock-icon.js";
-import { ServiceManager } from "../../service/database-service";
+import { LitElement, html, css } from 'lit-element';
+import '../../components/LoginForm/index.js';
+import lockIcon from '../../assets/lock-icon.js';
+import { ServiceManager } from '../../service/database-service.js';
 
 class LoginPage extends LitElement {
   static get styles() {
@@ -42,7 +42,7 @@ class LoginPage extends LitElement {
       if (this.serviceManager.checkCredentials({ name: email, password })) {
         this.loginSuccess(email);
       } else {
-        console.error("INVALID CREDENTIALS");
+        console.error('INVALID CREDENTIALS');
       }
     } else {
       this.serviceManager.setUser({ name: email, password });
@@ -52,11 +52,11 @@ class LoginPage extends LitElement {
 
   loginSuccess(user) {
     this.dispatchEvent(
-      new CustomEvent("login-success", {
+      new CustomEvent('login-success', {
         bubbles: true,
         composed: true,
         detail: user,
-      })
+      }),
     );
   }
 
@@ -76,4 +76,4 @@ class LoginPage extends LitElement {
   }
 }
 
-customElements.define("login-page", LoginPage);
+customElements.define('login-page', LoginPage);

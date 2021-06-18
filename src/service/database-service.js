@@ -1,4 +1,4 @@
-import { convertToBase64 } from "../utils/validations";
+import { convertToBase64 } from '../utils/validations.js';
 
 export class ServiceManager {
   setUser(user = {}) {
@@ -12,23 +12,23 @@ export class ServiceManager {
     }
   }
 
-  getUser(user = "") {
+  static getUser(user = '') {
     return JSON.parse(window.localStorage.getItem(user)) || null;
   }
 
-  saveUser(user = {}) {
+  static saveUser(user = {}) {
     const userData = { password: user.password, dateSession: user.dateSession };
     window.localStorage.setItem(user.name, JSON.stringify(userData));
   }
 
-  updateUserLastSessionDate(user = "") {
+  updateUserLastSessionDate(user = '') {
     const userSaved = this.getUser(user);
     if (userSaved && !!userSaved.dateSession) {
       this.saveUser({ name: user, ...userSaved, dateSession: new Date() });
     }
   }
 
-  removeUser(user = "") {
+  removeUser(user = '') {
     if (this.getUser(user)) window.localStorage.removeItem(user);
   }
 

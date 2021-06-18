@@ -1,13 +1,13 @@
-import { LitElement, html } from "lit-element";
-import "../Input/index";
-import "../Button/index";
-import { validateEmail, validatePass } from "../../utils/validations.js";
+import { LitElement, html } from 'lit-element';
+import '../Input/index.js';
+import '../Button/index.js';
+import { validateEmail, validatePass } from '../../utils/validations.js';
 
 export class LoginForm extends LitElement {
   constructor() {
     super();
-    this.email = "";
-    this.password = "";
+    this.email = '';
+    this.password = '';
     this.disabled = false;
   }
 
@@ -23,7 +23,7 @@ export class LoginForm extends LitElement {
     if ((validateEmail(this.email), validatePass(this.password))) {
       const { email, password } = this;
       this.dispatchEvent(
-        new CustomEvent("login-submit", { detail: { email, password } })
+        new CustomEvent('login-submit', { detail: { email, password } }),
       );
     } else {
       this.disabled = true;
@@ -68,4 +68,4 @@ export class LoginForm extends LitElement {
     `;
   }
 }
-customElements.define("login-form", LoginForm);
+customElements.define('login-form', LoginForm);

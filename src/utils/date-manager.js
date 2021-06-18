@@ -17,19 +17,19 @@ export class DateDiffManager {
 
   getHours() {
     return Math.floor(
-      (this.diff % MILLISECONDS_OF_A_DAY) / MILLISECONDS_OF_A_HOUR
+      (this.diff % MILLISECONDS_OF_A_DAY) / MILLISECONDS_OF_A_HOUR,
     );
   }
 
   getMinutes() {
     return Math.floor(
-      (this.diff % MILLISECONDS_OF_A_HOUR) / MILLISECONDS_OF_A_MINUTE
+      (this.diff % MILLISECONDS_OF_A_HOUR) / MILLISECONDS_OF_A_MINUTE,
     );
   }
 
   getSecond() {
     return Math.floor(
-      (this.diff % MILLISECONDS_OF_A_MINUTE) / MILLISECONDS_OF_A_SECOND
+      (this.diff % MILLISECONDS_OF_A_MINUTE) / MILLISECONDS_OF_A_SECOND,
     );
   }
 }

@@ -1,4 +1,4 @@
-import { LitElement, html, css } from "lit-element";
+import { LitElement, html, css } from 'lit-element';
 
 export class TimeNumber extends LitElement {
   static get properties() {
@@ -8,35 +8,37 @@ export class TimeNumber extends LitElement {
     };
   }
 
-  static styles = css`
-    .number-container {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-    h1,
-    h3 {
-      display: flex;
-      justify-content: center;
-      margin: 0;
-      padding: 0;
-      font-family: "Roboto", "Serif";
-      color: #757575fb;
-    }
-  `;
+  static get styles() {
+    return css`
+      .number-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      h1,
+      h3 {
+        display: flex;
+        justify-content: center;
+        margin: 0;
+        padding: 0;
+        font-family: 'Roboto', 'Serif';
+        color: #757575fb;
+      }
+    `;
+  }
 
   constructor() {
     super();
-    this.title = "";
-    this.number = "00";
+    this.title = '';
+    this.number = '00';
   }
 
-  fillNumber = () => {
+  fillNumber() {
     if (this.number.length === 1) {
-      this.number = "0".concat(this.number);
+      this.number = '0'.concat(this.number);
     }
-  };
+  }
 
   connectedCallback() {
     super.connectedCallback();
@@ -50,4 +52,4 @@ export class TimeNumber extends LitElement {
     </div>`;
   }
 }
-customElements.define("time-number", TimeNumber);
+customElements.define('time-number', TimeNumber);

@@ -1,4 +1,5 @@
-import { html } from "lit-element";
+import { html } from 'lit-element';
+
 export default html`<svg
   xmlns="http://www.w3.org/2000/svg"
   height="100%"

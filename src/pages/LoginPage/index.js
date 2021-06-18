@@ -1,7 +1,7 @@
 import { LitElement, html, css } from 'lit-element';
 import '../../components/LoginForm/index.js';
 import lockIcon from '../../assets/lock-icon.js';
-import { ServiceManager } from '../../service/database-service.js';
+import ServiceManager from '../../service/database-service.js';
 
 class LoginPage extends LitElement {
   static get styles() {

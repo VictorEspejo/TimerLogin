@@ -2,7 +2,7 @@ import { LitElement, html, css } from 'lit-element';
 import '../../components/Button/index.js';
 import '../../components/Timer/index.js';
 import SessionManager from '../../service/session-manager.js';
-import { ServiceManager } from '../../service/database-service.js';
+import ServiceManager from '../../service/database-service.js';
 
 class MainPage extends LitElement {
   static get properties() {

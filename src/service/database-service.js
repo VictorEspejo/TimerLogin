@@ -1,6 +1,7 @@
+/* eslint-disable class-methods-use-this */
 import { convertToBase64 } from '../utils/validations.js';
 
-export class ServiceManager {
+export default class ServiceManager {
   setUser(user = {}) {
     if (!this.getUser(user.name)) {
       const encryptedPassword = convertToBase64(user.password);
@@ -12,13 +13,18 @@ export class ServiceManager {
     }
   }
 
-  static getUser(user = '') {
+  getUser(user = '') {
     return JSON.parse(window.localStorage.getItem(user)) || null;
   }
 
-  static saveUser(user = {}) {
-    const userData = { password: user.password, dateSession: user.dateSession };
-    window.localStorage.setItem(user.name, JSON.stringify(userData));
+  saveUser(user = {}) {
+    if (user.name && user.password && user.dateSession) {
+      const userData = {
+        password: user.password,
+        dateSession: user.dateSession,
+      };
+      window.localStorage.setItem(user.name, JSON.stringify(userData));
+    }
   }
 
   updateUserLastSessionDate(user = '') {

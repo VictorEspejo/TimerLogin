@@ -8,7 +8,7 @@ export class ServiceManager {
         password: encryptedPassword,
         dateSession: new Date(),
       };
-      saveInLocalStorage(user.name, userData);
+      this.saveUser({ name: user.name, ...userData });
     }
   }
 
@@ -24,7 +24,7 @@ export class ServiceManager {
   updateUserLastSessionDate(user = "") {
     const userSaved = this.getUser(user);
     if (userSaved && !!userSaved.dateSession) {
-      this.saveUser(user, { ...userSaved, dateSession: new Date() });
+      this.saveUser({ name: user, ...userSaved, dateSession: new Date() });
     }
   }
 

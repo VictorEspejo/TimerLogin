@@ -1,0 +1,9 @@
+{
+  "name": "TimerLogin pp",
+  "short_name": "TimerApp",
+  "description": "Check when did you logged for the last time",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#135ec0",
+  "background_color": "#135ec0"
+}

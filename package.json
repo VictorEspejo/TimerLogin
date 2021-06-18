@@ -7,7 +7,7 @@
   "type": "module",
   "scripts": {
     "build": "rollup -c",
-    "serve": "es-dev-server --app-index index.html --open --node-resolve --watch",
+    "start": "es-dev-server --app-index index.html --open --node-resolve --watch",
     "lint": "npm run lint:eslint && npm run lint:prettier",
     "test": "web-test-runner \"**/test/**/*.test.js\" --node-resolve",
     "format": "npm run format:eslint && npm run format:prettier",

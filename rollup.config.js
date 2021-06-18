@@ -1,6 +1,11 @@
 import merge from 'deepmerge';
 import { createSpaConfig } from '@open-wc/building-rollup';
 
-const rollupConfig = createSpaConfig();
+const baseConfig = createSpaConfig({
+  developmentMode: process.env.ROLLUP_WATCH === 'true',
+  injectServiceWorker: false,
+});
 
-export default merge(rollupConfig, { input: './index.html' });
+export default merge(baseConfig, {
+  input: './index.html',
+});

@@ -12,9 +12,10 @@ To start the application it is necessary to have **npm** installed and run:
 
     npm run start
 
-In case you need to build the application for a server environment:
+In case it is necessary to do a construction to host the application you can use the **rollup** configuration.
+The command to execute would be:
 
-    npm run buld
+    npm run build
 
 ## Tests Cases
 

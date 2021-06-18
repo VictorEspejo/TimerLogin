@@ -9,12 +9,12 @@
     "build": "rollup -c",
     "serve": "es-dev-server --app-index index.html --open --node-resolve --watch",
     "lint": "npm run lint:eslint && npm run lint:prettier",
+    "test": "web-test-runner \"**/test/**/*.test.js\" --node-resolve",
     "format": "npm run format:eslint && npm run format:prettier",
     "lint:eslint": "eslint --ext .js,.html . --ignore-path .gitignore",
     "format:eslint": "eslint --ext .js,.html . --fix --ignore-path .gitignore",
     "lint:prettier": "prettier \"**/*.js\" --check --ignore-path .gitignore",
-    "format:prettier": "prettier \"**/*.js\" --write --ignore-path .gitignore",
-    "test": "web-test-runner \"**/test/**/*.test.js\" --node-resolve"
+    "format:prettier": "prettier \"**/*.js\" --write --ignore-path .gitignore"
   },
   "eslintConfig": {
     "extends": [

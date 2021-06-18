@@ -23,7 +23,7 @@ export class LoginForm extends LitElement {
     if ((validateEmail(this.email), validatePass(this.password))) {
       const { email, password } = this;
       this.dispatchEvent(
-        new CustomEvent('login-submit', { detail: { email, password } }),
+        new CustomEvent('login-submit', { detail: { email, password } })
       );
     } else {
       this.disabled = true;
@@ -49,12 +49,14 @@ export class LoginForm extends LitElement {
             @input-changed=${this.handleEmail}
             type="text"
             placeholder="email"
+            required
           ></input-element>
           <input-element
             name="password"
             @input-changed=${this.handlePassword}
             type="password"
-            placeholder="password (8 letters)"
+            placeholder="password"
+            required
           ></input-element>
         </div>
         <div class="login-btn">

@@ -64,17 +64,17 @@ export class InputElement extends LitElement {
   }
 
   handleChange(e) {
+    this.value = e.srcElement.value;
     this.dispatchEvent(
-      new CustomEvent('input-changed', { detail: e.srcElement.value }),
+      new CustomEvent('input-changed', { detail: this.value })
     );
   }
 
   render() {
     return html`<input
-      type=${this.type}
+      .type=${this.type}
       placeholder=${this.placeholder}
-      .value=${this.value}
-      @change=${this.handleChange}
+      @keyup="${this.handleChange}}"
     />`;
   }
 }

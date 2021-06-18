@@ -29,7 +29,7 @@ export default class ServiceManager {
 
   updateUserLastSessionDate(user = '') {
     const userSaved = this.getUser(user);
-    if (userSaved && !!userSaved.dateSession) {
+    if (userSaved) {
       this.saveUser({ name: user, ...userSaved, dateSession: new Date() });
     }
   }

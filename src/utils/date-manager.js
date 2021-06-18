@@ -4,32 +4,31 @@ const MILLISECONDS_OF_A_MINUTE = MILLISECONDS_OF_A_SECOND * 60;
 const MILLISECONDS_OF_A_HOUR = MILLISECONDS_OF_A_MINUTE * 60;
 const MILLISECONDS_OF_A_DAY = MILLISECONDS_OF_A_HOUR * 24;
 
-export class DateDiffManager {
-  constructor(actualDate, oldDate) {
-    this.actualDate = actualDate;
-    this.oldDate = oldDate;
-    this.diff = actualDate.getTime() - oldDate.getTime();
+export const DateDiffManager = (() => {
+  function getDays(diff) {
+    return Math.floor(diff / MILLISECONDS_OF_A_DAY);
   }
 
-  getDays() {
-    return Math.floor(this.diff / MILLISECONDS_OF_A_DAY);
+  function getHours(diff) {
+    return Math.floor((diff % MILLISECONDS_OF_A_DAY) / MILLISECONDS_OF_A_HOUR);
   }
 
-  getHours() {
+  function getMinutes(diff) {
     return Math.floor(
-      (this.diff % MILLISECONDS_OF_A_DAY) / MILLISECONDS_OF_A_HOUR,
+      (diff % MILLISECONDS_OF_A_HOUR) / MILLISECONDS_OF_A_MINUTE
     );
   }
 
-  getMinutes() {
+  function getSecond(diff) {
     return Math.floor(
-      (this.diff % MILLISECONDS_OF_A_HOUR) / MILLISECONDS_OF_A_MINUTE,
+      (diff % MILLISECONDS_OF_A_MINUTE) / MILLISECONDS_OF_A_SECOND
     );
   }
 
-  getSecond() {
-    return Math.floor(
-      (this.diff % MILLISECONDS_OF_A_MINUTE) / MILLISECONDS_OF_A_SECOND,
-    );
-  }
-}
+  return {
+    days: getDays,
+    hour: getHours,
+    minutes: getMinutes,
+    seconds: getSecond,
+  };
+})();

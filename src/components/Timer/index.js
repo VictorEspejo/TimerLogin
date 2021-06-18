@@ -6,7 +6,6 @@ export class TimerComponent extends LitElement {
   constructor() {
     super();
     this.date = new Date();
-    this.actualDate = new Date();
     this.days = 0;
     this.hours = 0;
     this.minutes = 0;
@@ -41,15 +40,22 @@ export class TimerComponent extends LitElement {
 
   connectedCallback() {
     super.connectedCallback();
-    this.getTimerData();
+    this.setTimerData();
   }
 
-  getTimerData() {
-    const dateDiffManager = new DateDiffManager(this.actualDate, this.date);
-    this.days = dateDiffManager.getDays();
-    this.hours = dateDiffManager.getHours();
-    this.minutes = dateDiffManager.getMinutes();
-    this.seconds = dateDiffManager.getSecond();
+  setTimerData() {
+    this.interval = window.setInterval(() => {
+      const diff = new Date().getTime() - this.date.getTime();
+      this.days = DateDiffManager.days(diff);
+      this.hours = DateDiffManager.hour(diff);
+      this.minutes = DateDiffManager.minutes(diff);
+      this.seconds = DateDiffManager.seconds(diff);
+    }, 1000);
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    window.clearInterval(this.interval);
   }
 
   render() {
